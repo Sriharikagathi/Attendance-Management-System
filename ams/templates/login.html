@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card {
+          background-color: lightblue;
+        }
+    </style>      
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYhLyxUJxJ0jvl5IiOQ839pQuAy99Mlk_26jYXOLnqPw&s" class="img-fluid">
+    <div style="display: grid; place-items: center; height: 10vh;">
+        {% for i in messages %}
+        <h3>{{i}}</h3>
+        {% endfor %}
+    </div>
+    
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center" style="height: 70vh;">
+              <div class="col-md-4">
+                <div class="card shadow-lg text-dark">
+                  <div class="card-body">
+                    <h2 class="text-center"><b>Faculty Login</b></h2>
+                      <div class="form-group">
+                        <label for="facultyid">Username:</label>
+                        <input type="number" class="form-control" id="facultyid" name="facultyid" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="Password1" required><br>
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-block">Login</button><br>
+                      <p><a href="{% url 'register' %}">Register</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </form>
+
+      <a href="/cse/c/">test</a>
+
+</body>
