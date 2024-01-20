@@ -1,6 +1,8 @@
 from django.shortcuts import render,HttpResponse,redirect
 from mylogin.models import Student
 from mansys.models import *
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='/log/login/')
 def index(request,semester,branch,section,subject):
     if request.method=="POST":
         details=Student.objects.filter(branch=branch,section=section,semester=semester)
@@ -57,12 +59,27 @@ def index(request,semester,branch,section,subject):
     for i in details:
         students_rollnos.append(i.studentid)
     return render(request,'studentlist.html',{'details':details})
-# from django.http import JsonResponse
-# def save_to_session(request):
-#     if request.method == 'POST':
-#         key = request.POST.get('key')
-#         value = request.POST.get('value')
-#         request.session[key] = value
-#         request.session.save()
-#         return JsonResponse({'status': 'success'})
-#     return JsonResponse({'status': 'error'})
+def attendance(request):
+    br=request.session.get('branch')
+    sem=request.session.get('semester')
+    li=[]
+    if br=="CSE":
+        obj=CSE.objects.filter(semester=sem)       
+    elif br=="ECE":
+        obj=ECE.objects.filter(semester=sem)
+    elif br=="EEE":
+        obj=EEE.objects.filter(semester=sem)
+    elif br=="MECH":
+        obj=MECH.objects.filter(semester=sem)
+    elif br=="CIVIL":
+        obj=CIVIL.objects.filter(semester=sem)
+    elif br=="CSBS":
+        obj=CSBS.objects.filter(semester=sem)
+    elif br=="CSM":
+        obj=CSM.objects.filter(semester=sem)
+    else:
+        obj=CSD.objects.filter(semester=sem)
+    for i in obj:
+        li.append(i.subjectid)
+    li=list(set(li))
+    print(li)

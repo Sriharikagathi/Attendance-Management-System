@@ -1,9 +1,11 @@
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
-from mansys.models import FACULTY
+from mansys.models import *
 from django.contrib import messages
 from .models import Student
+from django.contrib.auth.decorators import login_required
+
 # from django.http import JsonResponse
 # from django.core.serializers.json import DjangoJSONEncoder
 # Create your views here.
@@ -45,6 +47,7 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('login')
+@login_required(login_url="/log/login/")
 def facultyInfo(request):
     if request.method == 'POST':
         key = request.POST.get('key')
@@ -86,4 +89,3 @@ def facultyInfo(request):
 
 def studentlist(request):
     pass
-     
